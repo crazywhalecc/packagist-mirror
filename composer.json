@@ -1,0 +1,58 @@
+{
+    "name": "crazywhalecc/packagist-mirror",
+    "type": "project",
+    "require": {
+        "php": ">=7.2",
+        "ext-json": "*",
+        "symfony/console": "~6.0 || ~5.0 || ~4.0 || ~3.0",
+        "zhamao/request": "^1.1"
+    },
+    "license": "Apache-2.0",
+    "autoload": {
+        "psr-4": {
+            "Mirror\\": "src/Mirror/"
+        },
+        "files": [
+            "src/global_functions.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "crazywhalecc",
+            "email": "jesse2061@outlook.com"
+        }
+    ],
+    "require-dev": {
+        "brainmaestro/composer-git-hooks": "^2.8",
+        "friendsofphp/php-cs-fixer": "^3.2 != 3.7.0",
+        "phpstan/phpstan": "^1.1",
+        "phpunit/phpunit": "^8.5 || ^9.0",
+        "roave/security-advisories": "dev-latest",
+        "swoole/ide-helper": "^4.5"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "extra": {
+        "hooks": {
+            "post-merge": "composer install",
+            "pre-commit": [
+                "echo committing as $(git config user.name)",
+                "composer cs-fix -- --diff"
+            ],
+            "pre-push": [
+                "composer cs-fix -- --dry-run --diff",
+                "composer analyse"
+            ]
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "[ $COMPOSER_DEV_MODE -eq 0 ] || vendor/bin/cghooks add"
+        ],
+        "analyse": "phpstan analyse --memory-limit 300M",
+        "cs-fix": "php-cs-fixer fix",
+        "test": "bin/phpunit-swoole --no-coverage"
+    }
+}

@@ -1,0 +1,43 @@
+### mirror ###
+/mirror/
+
+# 进程锁文件
+.daemon_pid
+.zm_worker_*.pid
+
+### Composer ###
+composer.phar
+/vendor/
+composer.lock
+### Git ###
+# 备份文件
+*.orig
+
+# Git Hooks
+cghooks.lock
+
+### PHPUnit ###
+
+# 生成的文件
+/bin/.phpunit.result.cache
+.phpunit.result.cache
+.phpunit.cache
+
+# 本地配置
+/phpunit.xml
+
+### PhpStorm ###
+# 兼容 PHPStorm 及其他 Jetbrains IDE
+
+# 除了代码格式配置和运行配置之外的所有文件
+.idea/*
+
+!.idea/codeStyles
+!.idea/runConfigurations
+
+### Phive ###
+/.phive/
+/tools/
+
+### ASDF ###
+/.tool-version
