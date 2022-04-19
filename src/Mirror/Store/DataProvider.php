@@ -46,6 +46,14 @@ class DataProvider
         try {
             self::assertValid($json, 'target_dir');
             self::assertValid($json, 'github_token');
+
+            self::assertValid($json, 'repo_url');
+            self::assertValid($json, 'api_url');
+            self::assertValid($json, 'user_agent');
+
+            self::assertValid($json, 'provider_url');
+            self::assertValid($json, 'dist_url');
+            self::assertValid($json, 'api_iteration_interval');
         } catch (Exception $e) {
             Console::error($e->getMessage());
             return false;
@@ -58,13 +66,34 @@ class DataProvider
         $filename = TARGET_DIR . '/' . $filename;
         $dir = dirname($filename);
         if (!is_dir($dir)) {
-            Console::info("Directory {$dir} not exists, create it.");
+            Console::debug("Directory {$dir} not exists, create it.");
             mkdir($dir, 0777, true);
         }
-        Console::info("Write file {$filename}");
+        if (file_exists($filename)) {
+            Console::verbose('File exists, ignore it.');
+            return;
+        }
+        Console::verbose("Write file {$filename}");
+
         if (file_put_contents($filename, $content) === false) {
             throw new Exception("Write file {$filename} failed.");
         }
+    }
+
+    public static function rawFileExists($filename): bool
+    {
+        return file_exists(TARGET_DIR . '/' . $filename);
+    }
+
+    public static function deleteRawFile(string $filename): bool
+    {
+        $filename = TARGET_DIR . '/' . $filename;
+        if (file_exists($filename)) {
+            Console::verbose("Delete file {$filename}");
+            unlink($filename);
+            return true;
+        }
+        return false;
     }
 
     /**

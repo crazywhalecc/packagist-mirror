@@ -4,14 +4,22 @@ declare(strict_types=1);
 
 namespace Mirror\Sync;
 
+use Exception;
 use Mirror\Console\Console;
+use Mirror\Singleton;
 use Mirror\Store\Cache;
 use Mirror\Store\DataProvider;
+use Swoole\ExitException;
 use ZM\Requests\ZMRequest;
 
-class SyncComposerPhar
+class SyncComposerPhar extends SyncBase
 {
-    public static function sync()
+    use Singleton;
+
+    /**
+     * @throws Exception|ExitException
+     */
+    public function sync()
     {
         Console::info('Synchronizing composer.phar');
 
@@ -56,7 +64,8 @@ class SyncComposerPhar
         DataProvider::writeRawFile('composer.phar.sig', $composer_phar_sig); // 写入 composer.phar.sig
         DataProvider::writeRawFile('download/' . $stable['version'] . 'composer.phar.sig', $composer_phar_sig);
 
-        Console::info('Save stable composer version info into local cache');
+        Console::success('[Sync#1] Synchronized composer.phar successfully');
+
         Cache::set('local_stable_version', $stable['version']);
     }
 }

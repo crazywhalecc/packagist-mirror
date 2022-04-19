@@ -106,7 +106,7 @@ class Console
         }
         if (self::$info_level !== null && in_array(self::$info_level->get(), [3, 4])) {
             $trace = debug_backtrace()[1] ?? ['file' => '', 'function' => ''];
-            $trace = '[' . ($trace['class'] ?? '') . ':' . ($trace['function'] ?? '') . '] ';
+            $trace = '[' . ($trace['class']) . ':' . ($trace['function']) . '] ';
         }
         self::log($head . ($trace ?? '') . self::stringable($obj), self::getThemeColor(__FUNCTION__));
     }
@@ -122,9 +122,6 @@ class Console
             }
             if (!isset($t['line'])) {
                 $t['line'] = 0;
-            }
-            if (!isset($t['function'])) {
-                $t['function'] = 'unknown';
             }
             $log .= "#{$i} {$t['file']}({$t['line']}): ";
             if (isset($t['object']) and is_object($t['object'])) {
@@ -154,7 +151,7 @@ class Console
         if (self::$info_level !== null && self::$info_level->get() >= 4) {
             $msg = self::stringable($msg);
             $trace = debug_backtrace()[1] ?? ['file' => '', 'function' => ''];
-            $trace = '[' . ($trace['class'] ?? '') . ':' . ($trace['function'] ?? '') . '] ';
+            $trace = '[' . ($trace['class']) . ':' . ($trace['function']) . '] ';
             Console::log(self::getHead('D') . ($trace) . $msg, self::getThemeColor(__FUNCTION__));
         }
     }
@@ -164,9 +161,9 @@ class Console
         if ($head === null) {
             $head = self::getHead('V');
         }
-        if (self::$info_level !== null && in_array(self::$info_level->get(), [4])) {
+        if (self::$info_level !== null && self::$info_level->get() == 4) {
             $trace = debug_backtrace()[1] ?? ['file' => '', 'function' => ''];
-            $trace = '[' . ($trace['class'] ?? '') . ':' . ($trace['function'] ?? '') . '] ';
+            $trace = '[' . ($trace['class']) . ':' . ($trace['function']) . '] ';
         }
         if (self::$info_level !== null && self::$info_level->get() >= 3) {
             self::log($head . ($trace ?? '') . self::stringable($obj), self::getThemeColor(__FUNCTION__));
@@ -178,9 +175,9 @@ class Console
         if ($head === null) {
             $head = self::getHead('S');
         }
-        if (self::$info_level !== null && in_array(self::$info_level->get(), [4])) {
+        if (self::$info_level !== null && self::$info_level->get() == 4) {
             $trace = debug_backtrace()[1] ?? ['file' => '', 'function' => ''];
-            $trace = '[' . ($trace['class'] ?? '') . ':' . ($trace['function'] ?? '') . '] ';
+            $trace = '[' . ($trace['class']) . ':' . ($trace['function']) . '] ';
         }
         if (self::$info_level->get() >= 2) {
             self::log($head . ($trace ?? '') . self::stringable($obj), self::getThemeColor(__FUNCTION__));
@@ -192,9 +189,9 @@ class Console
         if ($head === null) {
             $head = self::getHead('I');
         }
-        if (self::$info_level !== null && in_array(self::$info_level->get(), [4])) {
+        if (self::$info_level !== null && self::$info_level->get() == 4) {
             $trace = debug_backtrace()[1] ?? ['file' => '', 'function' => ''];
-            $trace = '[' . ($trace['class'] ?? '') . ':' . ($trace['function'] ?? '') . '] ';
+            $trace = '[' . ($trace['class']) . ':' . ($trace['function']) . '] ';
         }
         if (self::$info_level->get() >= 2) {
             self::log($head . ($trace ?? '') . self::stringable($obj), self::getThemeColor(__FUNCTION__));
@@ -206,9 +203,9 @@ class Console
         if ($head === null) {
             $head = self::getHead('W');
         }
-        if (self::$info_level !== null && in_array(self::$info_level->get(), [4])) {
+        if (self::$info_level !== null && self::$info_level->get() == 4) {
             $trace = debug_backtrace()[1] ?? ['file' => '', 'function' => ''];
-            $trace = '[' . ($trace['class'] ?? '') . ':' . ($trace['function'] ?? '') . '] ';
+            $trace = '[' . ($trace['class']) . ':' . ($trace['function']) . '] ';
         }
         if (self::$info_level->get() >= 1) {
             self::log($head . ($trace ?? '') . self::stringable($obj), self::getThemeColor(__FUNCTION__));
@@ -237,11 +234,10 @@ class Console
         }
     }
 
-
-    private static function getHead($mode)
+    private static function getHead($mode): string
     {
         $head = date('[m-d H:i:s] ') . "[{$mode[0]}] ";
-        $head .= "[#".Coroutine::getCid()."] ";
+        $head .= '[#' . Coroutine::getCid() . '] ';
         return $head;
     }
 

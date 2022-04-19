@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-
-function conf($name)
+function conf($name, $default = null)
 {
     global $_conf;
-    return $_conf[$name] ?? null;
+    return $_conf[$name] ?? $default;
 }

@@ -6,9 +6,7 @@ namespace Mirror;
 
 use Exception;
 use Mirror\Command\SyncCommand;
-use Mirror\Console\Console;
 use Mirror\Store\DataProvider;
-use Mirror\Store\SpinLock;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -31,9 +29,7 @@ class ConsoleApplication extends Application
         if (!is_dir(DataProvider::getTmpPath())) {
             mkdir(DataProvider::getTmpPath(), 0777, true);
         }
-        Console::init(2);
-        SpinLock::init(64);
-
+        ini_set('memory_limit', '4096M');
         $this->add(new SyncCommand());
         return $this;
     }

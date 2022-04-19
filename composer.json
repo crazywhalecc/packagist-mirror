@@ -5,7 +5,9 @@
         "php": ">=7.2",
         "ext-json": "*",
         "symfony/console": "~6.0 || ~5.0 || ~4.0 || ~3.0",
-        "zhamao/request": "^1.1"
+        "zhamao/request": "^1.1",
+        "ext-pcntl": "*",
+        "ext-posix": "*"
     },
     "license": "Apache-2.0",
     "autoload": {
@@ -42,8 +44,7 @@
                 "composer cs-fix -- --diff"
             ],
             "pre-push": [
-                "composer cs-fix -- --dry-run --diff",
-                "composer analyse"
+                "composer cs-fix -- --dry-run --diff"
             ]
         }
     },

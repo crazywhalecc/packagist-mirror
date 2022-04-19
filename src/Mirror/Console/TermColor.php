@@ -20,54 +20,49 @@ class TermColor
 
     /**
      * 输出 8 位的颜色 (包括前景色和背景色)
-     * @param $code
-     * @return string
+     * @param int|string $code 颜色代码
      */
-    public static function color8($code)
+    public static function color8($code): string
     {
         return "\e[{$code}m";
     }
 
     /**
      * 输出 256 位的前景文字颜色 (通过8位256色颜色码)
-     * @param $code
-     * @return string
+     * @param int|string $code 颜色代码
      */
-    public static function frontColor256($code)
+    public static function frontColor256($code): string
     {
         return "\e[38;5;{$code}m";
     }
 
     /**
      * 输出 256 位的前景文字颜色 (通过rgb)
-     * @param $r
-     * @param $g
-     * @param $b
-     * @return string
+     * @param int|string $r red
+     * @param int|string $g green
+     * @param int|string $b blue
      */
-    public static function frontColor256rgb($r, $g, $b)
+    public static function frontColor256rgb($r, $g, $b): string
     {
         return "\e[38;2;{$r};{$g};{$b}m";
     }
 
     /**
      * 输出 256 位的背景文字颜色 (通过8位256色颜色码)
-     * @param $code
-     * @return string
+     * @param int|string $code 颜色代码
      */
-    public static function bgColor256($code)
+    public static function bgColor256($code): string
     {
         return "\e[48;5;{$code}m";
     }
 
     /**
      * 输出 256 位的前景文字颜色 (通过rgb)
-     * @param $r
-     * @param $g
-     * @param $b
-     * @return string
+     * @param int|string $r red
+     * @param int|string $g green
+     * @param int|string $b blue
      */
-    public static function bgColor256rgb($r, $g, $b)
+    public static function bgColor256rgb($r, $g, $b): string
     {
         return "\e[48;2;{$r};{$g};{$b}m";
     }
