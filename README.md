@@ -14,6 +14,12 @@ This project is inspired by [aliyun/packagist-mirror](https://github.com/aliyun/
 - Swoole >= 4.5.0
 - High-Speed storage, SSD is better
 
+## Configuration
+
+Configuration file is `config.php`, remember fill the blanks, and github token is required.
+
+`repo.packagist.org` is the default mirror source, you can change it in config file.
+
 ## Usage
 
 ```bash
